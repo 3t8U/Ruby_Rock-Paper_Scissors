@@ -1,16 +1,12 @@
 class Palindrome
-
-    def initialize(input)
-        @input = input
+    def cheat_mode(input)
+        input == input.reverse
     end
 
-    def cheat_mode()
-        @input == @input.reverse
-    end
-
-    def palin()
-        (@input.length/(2)).floor.times() do |i|
-            if @input[0 + i] != @input[-1 - i]
+    def palin(input)
+        input = input.to_s
+        (input.length/(2)).floor.times() do |i|
+            if input[0 + i] != input[-1 - i]
                 return false
             end
         end
@@ -18,6 +14,6 @@ class Palindrome
     end
 end
 
-p = Palindrome.new("racecar")
+p = Palindrome.new()
 # puts p.cheat_mode()
-puts p.palin()
+puts p.palin(1221)
