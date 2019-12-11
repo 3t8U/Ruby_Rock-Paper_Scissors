@@ -2,10 +2,6 @@ class RPS
     @@convert = {rock: 0, paper: 1, scissors: 2}
     @@wins =[[:tie, :paper, :rock], [:paper, :tie, :scissors], [:rock, :scissors, :tie]]
 
-    def initialize
-        @scoreboard = {P1: 0, P2: 0, CPU: 0}
-    end
-
     def quickplay(p1, p2)
         @@wins[@@convert.fetch(p1)][@@convert.fetch(p2)]
     end
@@ -17,23 +13,12 @@ class RPS
     end
 
     def play
-        p1 = File.read("lib/ps/p1.txt").strip.to_sym
-        p2 = File.read("lib/ps/p2.txt").strip.to_sym
-        outcome = @@wins[@@convert.fetch(p1)][@@convert.fetch(p2)]
-        tally(outcome, p1, p2)
+        p1 = @@convert.fetch(File.read("lib/ps/p1.txt").strip.to_sym)
+        p2 = @@convert.fetch(File.read("lib/ps/p2.txt").strip.to_sym)
+        outcome = @@wins[p1][p2]
         File.write("lib/ps/result.txt", "#{(outcome == :tie) ? "Nobody" : outcome.to_s.capitalize} wins!\n", mode:"a")
+        return outcome
     end
-
-    private
-        def tally(outcome, p1, p2)
-
-        end
 end
 
-game = RPS.new
-# puts game.play(:scissors, :rock)
-# puts game.play_cpu(:rock)
-
-puts game.play
-
-game.tally
+game = RPS.new()
